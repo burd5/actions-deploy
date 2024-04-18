@@ -1,16 +1,16 @@
 provider "aws" {
-  region = "us-east-1"
+  region = "us-west-2"
 }
 
 resource "aws_instance" "ec2_instance" {
-  ami           = "ami-0d7a109bf30624c99" # you may need to update this
+  ami           = "ami-0663b059c6536cac8" # you may need to update this
   instance_type = "t2.micro"
   iam_instance_profile = aws_iam_instance_profile.ec2_profile.name
-  key_name = "example" # update this
+  key_name = "sample_key_pair" # update this
   user_data = <<-EOF
   #!/bin/bash
   export AWS_ACCOUNT_ID=$(aws sts get-caller-identity --query "Account" --output text)
-  export REGION=us-east-1
+  export REGION=us-west-2
   export BACKEND_CONTAINER=flask_api
   export REPOSITORY_NAME=flask_app_sample
   sudo yum update -y
